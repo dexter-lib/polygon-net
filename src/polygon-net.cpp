@@ -11,7 +11,9 @@
 
 #include "event_handle.h"
 
+#include "test/test_block.h"
+
 int main() {
-	std::cout << "!!!Hello World!!!" << std::endl; // prints !!!Hello World!!!
+    Test::Test *pt = new Test::TestBlock();
 	return 0;
 }

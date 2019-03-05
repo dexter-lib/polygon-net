@@ -11,6 +11,7 @@
 #include <stdint.h>
 #include <assert.h>
 #include <unistd.h>
+#include <malloc.h>
 
 #define DEFAULT_BLOCK_SIZE 100 * 1024
 
@@ -63,7 +64,7 @@ public:
 		}
 	}
 
-	Buffer get_next()
+	Block* get_next()
 	{
 		return next;
 	}
@@ -78,7 +79,7 @@ public:
 	void release();
 public:
 	uint32_t m_total_cache_len;
-	Block *  m_pblock_poll;
+	Block *  m_pblock_pool;
 	Block *  m_pcur_block;
 public:
 	BlockPool();

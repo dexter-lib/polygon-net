@@ -8,7 +8,7 @@
 #include "buffer.h"
 
 BlockPool::BlockPool() {
-	m_pblock_poll = m_pcur_block = new Block;
+	m_pblock_pool = m_pcur_block = new Block;
 	m_total_cache_len = 0;
 }
 
@@ -18,7 +18,7 @@ BlockPool::~BlockPool() {
 
 void BlockPool::release()
 {
-	Block *pblock = m_pblock_poll;
+	Block *pblock = m_pblock_pool;
 	while(pblock)
 	{
 		Block *ptmp = pblock;
@@ -26,7 +26,7 @@ void BlockPool::release()
 		delete ptmp;
 	}
 
-	m_pcur_block = m_pblock_poll = NULL;
+	m_pcur_block = m_pblock_pool = NULL;
 	m_total_cache_len = 0;
 }
 
