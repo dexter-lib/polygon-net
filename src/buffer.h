@@ -12,6 +12,7 @@
 #include <assert.h>
 #include <unistd.h>
 #include <malloc.h>
+#include <string.h>
 
 #define DEFAULT_BLOCK_SIZE 100 * 1024
 
@@ -84,6 +85,8 @@ public:
 public:
 	BlockPool();
 	virtual ~BlockPool();
+public:
+	int32_t put(const char * data, uint32_t len);
 };
 
 #endif /* BUFFER_H_ */
