@@ -82,6 +82,7 @@ public:
 	uint32_t m_total_cache_len;
 	Block *  m_pblock_pool;
 	Block *  m_pcur_block;
+    uint32_t m_block_size;
 public:
 	BlockPool();
 	virtual ~BlockPool();

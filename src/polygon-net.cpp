@@ -15,5 +15,7 @@
 
 int main() {
     Test::Test *pt = new Test::TestBlock();
+    pt->TestCase();
+    delete pt;
 	return 0;
 }
