@@ -59,6 +59,24 @@ int32_t BlockPool::put(const char * data, uint32_t len)
 	return m_total_cache_len;
 }
 
+int32_t BlockPool::dump_all(char * data, uint32_t len)
+{
+    if(len < m_total_cache_len) return 0;
+
+    uint32_t tmp_len = m_total_cache_len;
+    Block *p = m_pblock_pool;
+
+    while(tmp_len && p)
+    {
+        memcpy(data, p->buffer->m_pbuffer, p->buffer->m_current_len);
+        data += p->buffer->m_current_len;
+        tmp_len -= p->buffer->m_current_len;
+        p = p->next;
+    }
+
+    return tmp_len;
+}
+
 
 BlockPool::BlockPool() {
 	m_pblock_pool = m_pcur_block = new Block;
