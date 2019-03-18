@@ -52,6 +52,14 @@
 
 typedef int SOCKET;
 
+typedef enum {
+	SUCCESS = 0,
+	NOT_CONNECTED,
+	CONNECTING,
+	FAILURE,
+	CLOSED
+} CONN_STATUS;
+
 static int setfd_nonblock(SOCKET socket)
 {
     int f_old;
