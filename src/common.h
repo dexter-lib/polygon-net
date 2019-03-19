@@ -60,6 +60,13 @@ typedef enum {
 	CLOSED
 } CONN_STATUS;
 
+typedef struct st_transfer_head
+{
+    unsigned short id;
+    unsigned short version;
+    unsigned int   body_len;
+} transfer_head;
+
 static int setfd_nonblock(SOCKET socket)
 {
     int f_old;

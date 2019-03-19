@@ -32,12 +32,10 @@ Connection::Connection()
  m_in_buffer(NULL),
  m_out_buffer(NULL)
 {
-	// TODO Auto-generated constructor stub
 
 }
 
 Connection::~Connection()
 {
-	// TODO Auto-generated destructor stub
 }
 

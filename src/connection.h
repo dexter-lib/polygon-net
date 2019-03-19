@@ -18,6 +18,7 @@ public:
 	inline SOCKET get_socket();
 	inline CONN_STATUS get_status();
 	inline uint64_t get_connection_id();
+	inline void set_socket(SOCKET s);
 public:
 	Connection();
 	virtual ~Connection();
@@ -42,6 +43,11 @@ SOCKET Connection::get_socket()
 CONN_STATUS Connection::get_status()
 {
 	return m_status;
+}
+
+void Connection::set_socket(SOCKET s)
+{
+    m_socket = s;
 }
 
 
