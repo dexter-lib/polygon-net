@@ -89,6 +89,8 @@ public:
 public:
 	int32_t put(const char * data, uint32_t len);
 	int32_t dump_all(char * data, uint32_t len);
+	int32_t dump_section(char * data, uint32_t len);
+	int32_t peek_out(char * data, uint32_t len);
 };
 
 #endif /* BUFFER_H_ */

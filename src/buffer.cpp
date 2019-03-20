@@ -77,6 +77,60 @@ int32_t BlockPool::dump_all(char * data, uint32_t len)
     return tmp_len;
 }
 
+int32_t BlockPool::dump_section(char * data, uint32_t len)
+{
+    if(len > m_total_cache_len) return -1;
+
+    if(0 == m_total_cache_len) return -0;
+
+    uint32_t tmp_len = m_total_cache_len;
+    Block *p = m_pblock_pool;
+
+    while(tmp_len && p)
+    {
+        memcpy(data, p->buffer->m_pbuffer, p->buffer->m_current_len);
+        data += p->buffer->m_current_len;
+        tmp_len -= p->buffer->m_current_len;
+        p = p->next;
+    }
+
+    return tmp_len;
+}
+
+int32_t BlockPool::peek_out(char * data, uint32_t len)
+{
+    if(len > m_total_cache_len) return -1;
+
+    if(0 == m_total_cache_len) return -0;
+
+    uint32_t tmp_len = len;
+    Block *p = m_pblock_pool;
+
+    while(tmp_len && p && m_total_cache_len)
+    {
+        if(tmp_len >= p->buffer->m_current_len)
+        {
+            memcpy(data, p->buffer->m_pbuffer, p->buffer->m_current_len);
+            data += p->buffer->m_current_len;
+            tmp_len -= p->buffer->m_current_len;
+            m_total_cache_len -= p->buffer->m_current_len;
+            Block *tmp_block = p;
+            p = p->next;
+            delete tmp_block;
+        }
+        else
+        {
+            memcpy(data, p->buffer->m_pbuffer, tmp_len);
+            m_total_cache_len -= tmp_len;
+            p->buffer->m_current_len -= tmp_len;
+            memmove(p->buffer->m_pbuffer, p->buffer->m_pbuffer + tmp_len, p->buffer->m_current_len);
+            tmp_len = 0;
+        }
+    }
+
+    return tmp_len;
+}
+
 
 BlockPool::BlockPool() {
 	m_pblock_pool = m_pcur_block = new Block;
