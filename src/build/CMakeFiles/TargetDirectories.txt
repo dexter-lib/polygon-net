@@ -1,3 +1,0 @@
-/mvfile/polygon-net/src/build/CMakeFiles/polygon-net.dir
-/mvfile/polygon-net/src/build/test.out/CMakeFiles/test.dir
-/mvfile/polygon-net/src/build/utils.out/CMakeFiles/utils.dir
