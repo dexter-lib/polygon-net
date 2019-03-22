@@ -77,6 +77,7 @@ public:
 
 class BlockPool {
 public:
+    void init();
 	void release();
 public:
 	uint32_t m_total_cache_len;

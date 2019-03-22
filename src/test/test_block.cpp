@@ -43,6 +43,20 @@ bool TestBlock::TestCase()
 
     printf("data:%d\n", strlen(data2));
 
+    char * data3 = (char *)malloc(pool->m_total_cache_len + 1);
+
+    memset(data, '1', data_len);
+
+    printf("data:%d\n", pool->m_total_cache_len);
+
+    pool->peek_out(data3, 2059500);
+
+    printf("data:%d, strlen(data3)=%d\n", pool->m_total_cache_len, strlen(data3));
+
+    int i = pool->peek_out(data3, 1000);
+
+    printf("%d, %d, %d, %d, %p", pool->m_total_cache_len, strlen(data3), pool->m_block_size, i, pool->m_pblock_pool);
+
     delete pool;
     free(data);
     free(data2);

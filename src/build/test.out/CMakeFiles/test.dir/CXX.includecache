@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mvfile/polygon-net/src/buffer.h
+stdint.h
+-
+assert.h
+-
+unistd.h
+-
+malloc.h
+-
+string.h
+-
+
+/mvfile/polygon-net/src/test/test.h
+
+/mvfile/polygon-net/src/test/test_block.cpp
+test_block.h
+/mvfile/polygon-net/src/test/test_block.h
+string.h
+-
+
+/mvfile/polygon-net/src/test/test_block.h
+../buffer.h
+/mvfile/polygon-net/src/buffer.h
+test.h
+/mvfile/polygon-net/src/test/test.h
+

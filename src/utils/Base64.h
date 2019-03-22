@@ -1,4 +1,7 @@
-#include "System.h" 
+#ifndef BASE64_H
+#define BASE64_H
+
+#include <string>
 
 class Base64
 {
@@ -17,3 +20,4 @@ public:
     */
     std::string Decode(const char* Data,int DataByte,int& OutByte);
 };
+#endif
