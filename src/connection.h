@@ -13,6 +13,7 @@
 
 class Connection {
 public:
+    int  check_packet(char * &buf, int & packet_len);
 	void close();
 public:
 	inline SOCKET get_socket();
