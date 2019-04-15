@@ -52,6 +52,12 @@
 
 typedef int SOCKET;
 
+const int MAX_LISTEN_NUM = 100;
+
+#define EPOLL_ADD  1
+#define EPOLL_DEL  2
+#define EPOLL_MOD  3
+
 typedef enum {
 	SUCCESS = 0,
 	NOT_CONNECTED,
@@ -75,6 +81,13 @@ static int setfd_nonblock(SOCKET socket)
     f_old |= O_NONBLOCK;
     return (fcntl(socket,F_SETFL,f_old));
 }
+
+typedef struct st_lib_head
+{
+    int main_fd;
+    int listen_num;
+    int listen_sock[MAX_LISTEN_NUM];
+} lib_head;
 
 
 #endif /* COMMON_H_ */
