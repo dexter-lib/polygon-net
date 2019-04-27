@@ -53,6 +53,7 @@
 typedef int SOCKET;
 
 const int MAX_LISTEN_NUM = 100;
+const int MAX_EVENTS = 5000;
 
 #define EPOLL_ADD  1
 #define EPOLL_DEL  2
