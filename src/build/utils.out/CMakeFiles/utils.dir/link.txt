@@ -1,2 +1,0 @@
-/usr/bin/ar cr libutils.a  CMakeFiles/utils.dir/platform_mutex.cpp.o CMakeFiles/utils.dir/Base64.cpp.o CMakeFiles/utils.dir/log.cpp.o
-/usr/bin/ranlib libutils.a

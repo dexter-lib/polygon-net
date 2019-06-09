@@ -9,6 +9,7 @@
 #define SRC_TEST_TEST_BLOCK_H_
 
 #include "../buffer.h"
+#include "../utils/automatic.hpp"
 #include "test.h"
 
 namespace Test

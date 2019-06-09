@@ -20,6 +20,9 @@ public:
 	inline CONN_STATUS get_status();
 	inline uint64_t get_connection_id();
 	inline void set_socket(SOCKET s);
+	inline uint64_t get_connection_id() const;
+	inline void set_socket_addr(sockaddr_in addr);
+	inline void set_ip_port(const char * p);
 public:
 	Connection();
 	virtual ~Connection();
@@ -29,6 +32,8 @@ private:
 	SOCKET      m_socket;
 	BlockPool  *m_in_buffer;
 	BlockPool  *m_out_buffer;
+	sockaddr_in m_addr;
+	std::string m_ip_port;
 };
 
 uint64_t Connection::get_connection_id()
@@ -49,6 +54,20 @@ CONN_STATUS Connection::get_status()
 void Connection::set_socket(SOCKET s)
 {
     m_socket = s;
+}
+
+uint64_t Connection::get_connection_id() const
+{
+    return m_connect_id;
+}
+
+void Connection::set_socket_addr(sockaddr_in addr){
+    m_addr = addr;
+}
+
+void Connection::set_ip_port(const char * p)
+{
+    m_ip_port = p;
 }
 
 

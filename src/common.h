@@ -50,10 +50,16 @@
 #include <signal.h>
 #include <fcntl.h>
 
+#include "utils/platform_mutex.h"
+
 typedef int SOCKET;
 
 const int MAX_LISTEN_NUM = 100;
 const int MAX_EVENTS = 5000;
+
+extern uint64_t g_connection_id;
+
+extern PlatformMutex g_conn_id_mutex;
 
 #define EPOLL_ADD  1
 #define EPOLL_DEL  2
@@ -89,6 +95,14 @@ typedef struct st_lib_head
     int listen_num;
     int listen_sock[MAX_LISTEN_NUM];
 } lib_head;
+
+
+static long get_connection_id()
+{
+    g_conn_id_mutex.lock();
+    g_connection_id++;
+    g_conn_id_mutex.unlock();
+}
 
 
 #endif /* COMMON_H_ */

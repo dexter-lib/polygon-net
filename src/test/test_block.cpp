@@ -55,6 +55,10 @@ bool TestBlock::TestCase()
 
     int i = pool->peek_out(data3, 1000);
 
+    AutomaticID<int> a;
+
+    printf("++++++++++++++++%ld+++++++++++++\n", a++);
+
     printf("%d, %d, %d, %d, %p", pool->m_total_cache_len, strlen(data3), pool->m_block_size, i, pool->m_pblock_pool);
 
     delete pool;

@@ -63,9 +63,11 @@ Connection::Connection()
  m_connect_id(0ULL),
  m_socket(-1),
  m_in_buffer(NULL),
- m_out_buffer(NULL)
+ m_out_buffer(NULL),
+ m_addr(),
+ m_ip_port("")
 {
-
+    m_connect_id = get_connection_id();
 }
 
 Connection::~Connection()

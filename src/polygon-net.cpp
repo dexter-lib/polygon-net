@@ -14,9 +14,18 @@
 
 #include "test/test_block.h"
 #include "mepoll.h"
+#include "connection.h"
 
 
 lib_head  g_server_io;
+
+uint64_t g_connection_id = 0ULL;
+
+PlatformMutex g_conn_id_mutex;
+
+Connection* AccepterNewFD(int sock);
+
+Connection * new_conn(int sock, struct sockaddr_in addr);
 
 void * lib_listen(void *p)
 {
@@ -61,7 +70,7 @@ void * lib_listen(void *p)
 
         		if(listen_fd)
         		{
-
+        		    AccepterNewFD(listen_fd);
         		}
         	}
 
@@ -70,6 +79,68 @@ void * lib_listen(void *p)
     }
 
 	return (void *)NULL;
+}
+
+
+Connection* AccepterNewFD(int sock)
+{
+    SOCKET newsk;
+    socklen_t addrlen;
+    struct sockaddr_in addr;
+
+    addrlen = sizeof(struct sockaddr_in);
+RT1:
+    newsk = accept(sock,(struct sockaddr*) &addr,&addrlen);
+
+    if( newsk < 0 )
+    {
+        int err=errno;
+        if(err == EMFILE)
+            exit(1);
+
+        if(err==EINTR)
+            goto RT1;
+
+        if(err==EAGAIN||err==EWOULDBLOCK)
+            return NULL;
+
+        return NULL;
+    }
+
+    if( AF_INET != addr.sin_family || addrlen != sizeof(struct sockaddr_in))
+    {
+        close(sock);
+        return NULL;
+    }
+
+    return new_conn(sock, addr);
+
+}
+
+
+Connection * new_conn(int sock, struct sockaddr_in addr)
+{
+    if(setfd_nonblock(sock))
+    {
+        close(sock);
+        return NULL;
+        printf("set nonblock error %d\n", sock);
+    }
+
+    int flag=1;
+    int r=setsockopt(sock,IPPROTO_TCP,TCP_NODELAY,(char *) &flag,sizeof(int));
+
+    Connection * conn = new Connection();
+
+    conn->set_socket(sock);
+    conn->set_socket_addr(addr);
+
+    char ip_port[256];
+
+    snprintf(ip_port, 256, "%s:%d", inet_ntoa(addr.sin_addr), ntohs(addr.sin_port));
+    conn->set_ip_port(ip_port);
+
+    return conn;
 }
 
 int main() {
